@@ -1,0 +1,65 @@
+﻿@model GestionDesProjets.Models.Devi
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Devi</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NumDev" class="control-label"></label>
+                <input asp-for="NumDev" class="form-control" />
+                <span asp-validation-for="NumDev" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NbJourValidity" class="control-label"></label>
+                <input asp-for="NbJourValidity" class="form-control" />
+                <span asp-validation-for="NbJourValidity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NameDev" class="control-label"></label>
+                <input asp-for="NameDev" class="form-control" />
+                <span asp-validation-for="NameDev" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateValidationDev" class="control-label"></label>
+                <input asp-for="DateValidationDev" class="form-control" />
+                <span asp-validation-for="DateValidationDev" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalHtdev" class="control-label"></label>
+                <input asp-for="TotalHtdev" class="form-control" />
+                <span asp-validation-for="TotalHtdev" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdClient" class="control-label"></label>
+                <select asp-for="IdClient" class ="form-control" asp-items="ViewBag.IdClient"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdTva" class="control-label"></label>
+                <select asp-for="IdTva" class ="form-control" asp-items="ViewBag.IdTva"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdDeGeneration" class="control-label"></label>
+                <select asp-for="IdDeGeneration" class ="form-control" asp-items="ViewBag.IdDeGeneration"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

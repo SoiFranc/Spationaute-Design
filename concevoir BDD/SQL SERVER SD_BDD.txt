@@ -1,0 +1,305 @@
+--DROP DATABASE SpationauteDesignBDD;
+IF NOT EXISTS(SELECT name FROM master.dbo.sysdatabases WHERE name = 'SpationauteDesignBDD')
+BEGIN
+CREATE DATABASE SpationauteDesignBDD;
+END;
+GO
+
+USE SpationauteDesignBDD
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Couts]') AND type in (N'U'))
+BEGIN
+CREATE TABLE Couts(
+   idCout INT IDENTITY(1,1) PRIMARY KEY,
+   catCout VARCHAR (20) NOT NULL DEFAULT 'RH',
+   dateCout DATE NOT NULL,
+   descriptionCout VARCHAR (250) NOT NULL,
+   montantCout MONEY NOT NULL,
+   idProjet INT,
+   CHECK (catCout in ('Divers','RH','Materiaux','Frais','Charges')) 
+)
+END;
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Taches]') AND type in (N'U'))
+BEGIN
+CREATE TABLE Taches(
+   idTache INT IDENTITY(1,1) PRIMARY KEY,
+   numTache VARCHAR(20) NOT NULL,
+   nameTache VARCHAR(20) NOT NULL,
+   descriptionTache VARCHAR(1500) NOT NULL,
+   prioTache VARCHAR(20) NOT NULL DEFAULT 'Vitale',
+   stateTache VARCHAR(20) NOT NULL DEFAULT 'Idee',
+   categoryTache VARCHAR(20) NOT NULL DEFAULT 'Initialisation',
+   dateCreateTache DATE NOT NULL,
+   dateInProgressTache DATE,
+   dateToTestTache DATE,
+   dateEndThTache DATE,
+   dateEndRealTache DATE,
+   idProjet INT,
+   CHECK (prioTache in ('Vitale','Importante','Utile','Confort')),
+   CHECK (stateTache in ('Idee', 'Creer','EnCours','ATester','Terminer','Annuler')),
+   CHECK (categoryTache in ('Initialisation','Analyse','Conception','Realisation','Exploitation'))
+)
+END;
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Tva]') AND type in (N'U'))
+BEGIN
+CREATE TABLE Tva(
+   idTva INT IDENTITY(1,1) PRIMARY KEY,
+   tauxTva DECIMAL(5,2) NOT NULL
+)
+END;
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Utilisateurs]') AND type in (N'U'))
+BEGIN
+CREATE TABLE Utilisateurs(
+   idUtilisateur INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+   firstname VARCHAR(20) NOT NULL,
+   name VARCHAR(20) NOT NULL,
+   login VARCHAR(100)  NOT NULL,
+   pswHash VARCHAR(255)  NOT NULL UNIQUE,
+   pswSel VARCHAR(255)  NOT NULL UNIQUE,
+   adress VARCHAR(255) NOT NULL,
+   tel VARCHAR(20) NOT NULL,
+   mail VARCHAR(100) NOT NULL,
+   isActivate BIT DEFAULT 0
+)
+END;
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Clients]') AND type in (N'U'))
+BEGIN
+CREATE TABLE Clients(
+   idClient INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+   firstname VARCHAR(20) NOT NULL,
+   name VARCHAR(20) NOT NULL,
+   adress VARCHAR(255),
+   tel VARCHAR(20),
+   mail VARCHAR(100) NOT NULL,
+   isActivate BIT NOT NULL DEFAULT 0,
+   isPro BIT NOT NULL DEFAULT 1,
+   numSiret VARCHAR(20),
+   tvaIntracom VARCHAR(20),
+   codeApe VARCHAR(10),
+   nomActivitePro VARCHAR(30) NOT NULL,
+   adrActivitePro VARCHAR(255) NOT NULL,
+   commentaire TEXT,
+   guidAspNetUsers nvarchar(450)
+)
+END;
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Documents]') AND type in (N'U'))
+BEGIN
+CREATE TABLE Documents(
+   idDocument INT IDENTITY(1,1) PRIMARY KEY,
+   catDoc  VARCHAR(20) NOT NULL DEFAULT 'Divers',
+   nameDoc VARCHAR(50),
+   descriptionDoc TEXT,
+   dateDoc DATE,
+   pathDoc VARCHAR(256) NOT NULL,
+   idProjet INT,
+   idDeGeneration INT DEFAULT 0,
+   CHECK (catDoc in ('Divers','Devis','Facture','Plan','Schema','ImgPhoto','Couts'))
+)
+END;
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Devis]') AND type in (N'U'))
+BEGIN
+CREATE TABLE Devis(
+   idDevis INT IDENTITY(1,1) PRIMARY KEY,
+   numDev VARCHAR(50)  NOT NULL UNIQUE,
+   nbJourValidity INT NOT NULL,
+   nameDev VARCHAR(255)  NOT NULL,
+   dateValidationDev DATE,
+   type VARCHAR(20) NOT NULL DEFAULT 'Forfait',
+   totalHtDev MONEY NOT NULL,
+   idClient INT,
+   idTva INT,
+   idDeGeneration INT,
+   CHECK (type in ('QPU','Forfait'))
+)
+END;
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Factures]') AND type in (N'U'))
+BEGIN
+CREATE TABLE Factures(
+   idFacture INT IDENTITY(1,1) PRIMARY KEY,
+   numFact VARCHAR(50) NOT NULL UNIQUE,
+   nameFact VARCHAR(255) NOT NULL,
+   dateAcquittalFact DATE NOT NULL,
+   isAccount BIT DEFAULT 0 NOT NULL,
+   typeFact VARCHAR(20) NOT NULL DEFAULT 'Forfait',
+   montantHtFact MONEY NOT NULL,
+   idProjet INT,
+   idTva INT,
+   idDeGeneration INT,
+   CHECK (typeFact in ('QPU','Forfait'))
+)
+END;
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Projets]') AND type in (N'U'))
+BEGIN
+CREATE TABLE Projets(
+   idProjet INT IDENTITY(1,1) PRIMARY KEY,
+   numProj VARCHAR(50)  NOT NULL UNIQUE,
+   nameProj VARCHAR(255),
+   descriptionProj TEXT NOT NULL,
+   dateStartProj DATE NOT NULL,
+   dateEndThProj DATE NOT NULL,
+   dateEndRealProj DATE,
+   placeProj VARCHAR(255),
+   stateAdvancementProj VARCHAR(30) NOT NULL DEFAULT 'Creer',
+   caProj MONEY NOT NULL,
+   idDevis INT,
+  guidAspNetUsers nvarchar(450),
+   CHECK (stateAdvancementProj in ('Creer','EnCours','Initialisation','Analyse','Conception','Exploitation','Terminer','Cloturer','Annuler'))
+)
+END;
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[LigDevQpu]') AND type in (N'U'))
+BEGIN
+CREATE TABLE LigDevQpu(
+   idLigDevQpu INT IDENTITY(1,1) PRIMARY KEY,
+   numLigDevQpu INT NOT NULL,
+   designationLigDevQpu VARCHAR(255) NOT NULL,
+   qLigDevQpu TINYINT NOT NULL,
+   montantLigDevQpu MONEY NOT NULL,
+   idDevis INT
+)
+END;
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[LigDevForfait]') AND type in (N'U'))
+BEGIN
+CREATE TABLE LigDevForfait(
+   idLigDevForfait INT IDENTITY(1,1) PRIMARY KEY,
+   numLigDevForfait INT NOT NULL,
+   designationLigDevForfait VARCHAR(255) NOT NULL,
+   montantLigDevForfait MONEY NOT NULL,
+   idDevis INT
+)
+END;
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[LigFactForfait]') AND type in (N'U'))
+BEGIN
+CREATE TABLE LigFactForfait(
+   idLigFactForfait INT IDENTITY(1,1) PRIMARY KEY,
+   dateInterventionLigFactForfait DATE NOT NULL,
+   numLigFactForfait INT NOT NULL,
+   designationLigFactForfait VARCHAR(255) NOT NULL,
+   montantLigFactForfait MONEY NOT NULL,
+   idFacture INT
+)
+END;
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[LigFactQpu]') AND type in (N'U'))
+BEGIN
+CREATE TABLE LigFactQpu(
+   idLigFactQpu INT IDENTITY(1,1) PRIMARY KEY,
+   dateInterventionLigFactQpu DATE NOT NULL,
+   numLigFactQpu INT NOT NULL,
+   designationLigFactQpu VARCHAR(255) NOT NULL,
+   qLigFactQpu TINYINT NOT NULL,
+   montantLigFactQpu MONEY NOT NULL,
+   idFacture INT
+)
+END;
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Generateur]') AND type in (N'U'))
+BEGIN
+CREATE TABLE Generateur(
+   idDeGeneration INT IDENTITY(1,1) PRIMARY KEY,
+   dateGenerationDoc DATE NOT NULL,
+   catGen Varchar(20) DEFAULT 'Devis' NOT NULL,
+   CHECK (catGen in ('Devis','Facture'))
+)
+END;
+GO
+
+/***** Cr?ation des cl?s ?trang?res et les contraintes *****/
+ALTER TABLE Clients
+ADD CONSTRAINT FK_Clients_AspNetUsers FOREIGN KEY(guidAspNetUsers) REFERENCES AspNetUsers(id);
+
+ALTER TABLE Taches
+ADD CONSTRAINT FK_Taches_Projets FOREIGN KEY (idProjet) REFERENCES Projets(idProjet);
+
+ALTER TABLE Utilisateurs.Psw
+ADD CONSTRAINS AK_Psw UNIQUE (PswHash, PswSel);
+
+ALTER TABLE Couts
+ADD CONSTRAINT FK_Couts_Projets FOREIGN KEY(idProjet) REFERENCES Projets(idProjet);
+
+ALTER TABLE LigFactForfait
+ADD CONSTRAINT FK_LigFactForfait_Factures FOREIGN KEY(idFacture) REFERENCES Factures(idFacture);
+
+ALTER TABLE LigFactQpu
+ADD CONSTRAINT FK_LigFactQpu_Factures FOREIGN KEY(idFacture) REFERENCES Factures(idFacture);
+
+ALTER TABLE Factures
+ADD CONSTRAINT FK_Factures_Projets FOREIGN KEY(idProjet) REFERENCES Projets(idProjet),
+CONSTRAINT FK_Factures_Generateur FOREIGN KEY(idDeGeneration) REFERENCES Generateur(idDeGeneration),
+CONSTRAINT FK_Factures_Tva FOREIGN KEY(idTva) REFERENCES Tva(idTva);
+
+ALTER TABLE Documents
+ADD CONSTRAINT FK_Documents_Projets FOREIGN KEY (idProjet) REFERENCES Projets(idProjet),
+CONSTRAINT FK_Documents_Generateur FOREIGN KEY (idDeGeneration) REFERENCES Generateur(idDeGeneration);
+
+ALTER TABLE Devis
+ADD CONSTRAINT FK_Devis_Clients FOREIGN KEY (idClient) REFERENCES Clients(idClient),
+CONSTRAINT FK_Devis_Generateur FOREIGN KEY(idDeGeneration) REFERENCES Generateur(idDeGeneration),
+CONSTRAINT FK_Devis_Tva FOREIGN KEY(idTva) REFERENCES Tva(idTva);
+
+ALTER TABLE LigDevQpu
+ADD CONSTRAINT FK_LigDevQpu_Devis FOREIGN KEY (idDevis) REFERENCES Devis(idDevis);
+
+ALTER TABLE LigDevForfait
+ADD CONSTRAINT FK_LigDevForfait_Devis FOREIGN KEY(idDevis) REFERENCES Devis(idDevis);
+
+ALTER TABLE Projets
+ADD CONSTRAINT FK_Projets_Devis FOREIGN KEY (idDevis) REFERENCES Devis(idDevis),
+CONSTRAINT FK_Projets_AspNetUsers FOREIGN KEY(guidAspNetUsers) REFERENCES AspNetUsers(id);
+
+GO
+
+/* Backup de la BDD*/
+--USE NomBDD (si pas de requ te r alis es avant)
+declare @d varchar(50);
+set @d = 'SpationauteDesignBDD'+cast(getdate() as varchar(50))+'bak';
+set @d = replace(@d,' ','');
+set @d = replace(@d,':','');
+set @d = 'd:\'+@d; --(pour mettre le fichier ailleurs que dans le backup sql server, ici le d:\)
+backup database SpationauteDesignBDD to disk = @d;
+
+
+/*
+/***** Cr ation d'un backup de la BDD nomm  et dat  automatiquement *****/
+----1 r aliser un enregistrement de backup :
+use NomBDD; (pour r aliser ces op rations, il ne faut pas se trouver sur la BDD, mais sur "master")
+backup database NomBDD to disk = 'NomBDDDATE.bak'  (ce fichier est stocker dans le backup de sql server)
+
+/* si on veut que le nommage et dat  l'enregistrement backup Automatiquement*/
+declare @d varchar(50);
+set @d = 'NomBDD'+cast(getdate() as varchar(50))+'bak';
+set @d = replace(@d,' ','');
+set @d = replace(@d,':','');
+set @d = 'd:\'+@d; (pour mettre le fichier ailleurs que dans le backup sql server, ici le d:\)
+backup database NomBDD to disk = @d;
+
+----2 Rappeler l'enregistrement backup :
+use master;
+restore database NomBDD from disk = 'NomDuBackupDATE.bak'; (NomDuBackupDATE.bak=NomBDDDATE.bak)
+
+*/
+

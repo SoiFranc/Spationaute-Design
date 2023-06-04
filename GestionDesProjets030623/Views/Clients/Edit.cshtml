@@ -1,0 +1,194 @@
+﻿@model GestionDesProjets.Models.Client
+
+@{
+    ViewData["Title"] = "Modifier Client";
+}
+
+
+<div class="container row" style="margin:10px;">
+    <div class="col-sm-12" style="display:flex;flex-direction:row;align-items:center;font-weight:bold; ">
+        <div class="col-sm-1 itemTitle" style="text-align:end;padding-right:2px">
+            @Html.DisplayNameFor(model => model.IdClient)
+        </div>
+        <div class="col-sm-1 itemTitle">
+            <span>  : Cli_</span>
+            @Html.DisplayFor(model => model.IdClient)
+        </div>
+        <div style="display:flex;flex-direction:row;align-items:center;font-weight:bold;background-color:white;width:auto;border-radius:10px;margin:0 0 0 5%;">
+            <div class="col-sm-5 itemTitle" style="height:5vh;">
+                <h1 style="margin:0.5vh 0 0 5vw;font-size:1.5rem;text-align:end;font-weight:bold;">Modifier </h1>
+            </div>
+            <div class="col-sm-5 itemTitle" style="padding:0 20vw 0 0;font-weight:bold;text-align:start;width:auto;">
+                <i class="bi bi-person-gear" style="font-size:1.5rem"> : @Html.DisplayFor(model => model.Firstname) @Html.DisplayFor(model => model.Name)</i>
+            </div>
+        </div>
+       
+    </div>    
+</div>
+
+<hr />
+<div>
+    <form asp-action="Edit">
+        <div class="row Modif">
+            <div class="col-md-8">
+                <div class="row">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="IdClient" />
+                    <div class="col-md-6">
+                        <div class="form-group" style="display:flex;flex-direction:row;">
+                            <div class="col-md-4" style="padding:5px 0 5px 20px;">
+                                <label asp-for="Firstname" class="control-label"></label>
+                            </div>
+                            <div class="col-md-8">
+                                <input asp-for="Firstname" class="form-control" />
+                                <span asp-validation-for="Firstname" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group" style="display:flex;flex-direction:row;">
+                            <div class="col-md-4" style="padding:5px 0 5px 20px;">
+                                <label asp-for="Name" class="control-label"></label>
+                            </div>
+                            <div class="col-md-8">
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group" style="display:flex;flex-direction:row;">
+                            <div class="col-md-4" style="padding:5px 0 5px 20px;">
+                                <label asp-for="Adress" class="control-label"></label>
+                            </div>
+                            <div class="col-md-8">
+                                <textarea type="text" asp-for="Adress" class="form-control" rows="3"></textarea>
+                                <span asp-validation-for="Adress" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group" style="display:flex;flex-direction:row;">
+                            <div class="col-md-4" style="padding:5px 0 5px 20px;">
+                                <label asp-for="Tel" class="control-label"></label>
+                            </div>
+                            <div class="col-md-8">
+                                <input asp-for="Tel" class="form-control" />
+                                <span asp-validation-for="Tel" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group" style="display:flex;flex-direction:row;">
+                            <div class="col-md-4" style="padding:5px 0 5px 20px;">
+                                <label asp-for="Mail" class="control-label"></label>
+                            </div>
+                            <div class="col-md-8">
+                                <input asp-for="Mail" class="form-control" />
+                                <span asp-validation-for="Mail" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group" style="display:flex;flex-direction:row;">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group" style="display:flex;flex-direction:row;">
+                            <div class="col-md-5" style="padding:5px 0 5px 20px;">
+                                <label asp-for="IsActivate" class="control-label"></label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="bool" asp-for="IsActivate" class="form-control" />
+                                <span asp-validation-for="IsActivate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group" style="display:flex;flex-direction:row;">
+                            <div class="col-md-5" style="padding:5px 0 5px 20px;">
+                                <label asp-for="IsPro" class="control-label"></label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="bool" asp-for="IsPro" class="form-control" />
+                                <span asp-validation-for="IsPro" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group" style="display:flex;flex-direction:row;">
+                            <div class="col-md-5" style="padding:5px 0 5px 20px;">
+                                <label asp-for="CodeApe" class="control-label"></label>
+                            </div>
+                            <div class="col-md-4">
+                                <input asp-for="CodeApe" class="form-control" />
+                                <span asp-validation-for="CodeApe" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group" style="display:flex;flex-direction:row;">
+                            <div class="col-md-5" style="padding:5px 0 5px 20px;">
+                                <label asp-for="NumSiret" class="control-label"></label>
+                            </div>
+                            <div class="col-md-7">
+                                <input asp-for="NumSiret" class="form-control" />
+                                <span asp-validation-for="NumSiret" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group" style="display:flex;flex-direction:row;">
+                            <div class="col-md-5" style="padding:5px 0 5px 20px;">
+                                <label asp-for="TvaIntracom" class="control-label"></label>
+                            </div>
+                            <div class="col-md-7">
+                                <input asp-for="TvaIntracom" class="form-control" />
+                                <span asp-validation-for="TvaIntracom" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin: 10px 0 0 10px;">
+                    <div class="form-group col-md-11">
+                        <label asp-for="Commentaire" class="control-label">Commentaire :</label>
+                        <textarea type="text" asp-for="Commentaire" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Commentaire" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" style="margin:0 0 10px -40px;">
+                <div style="Border:1px solid #000537; border-radius:10px;">
+                    <div class="col-md-4" style="margin:-14px 0 30px 10px;background-color:lightgray; text-align:center;">Activité Pro : </div>
+                    <div class="form-group col-md-12" style="display:flex;flex-direction:row;">
+                        <div class="col-md-5" style="padding:5px 0 5px 20px;">
+                            <label asp-for="NomActivitePro" class="control-label"></label>
+                        </div>
+                        <div class="col-md-6">
+                            <input asp-for="NomActivitePro" class="form-control" />
+                            <span asp-validation-for="NomActivitePro" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12" style="display:flex;flex-direction:row;">
+                        <div class="col-md-5" style="padding:5px 0 5px 20px;">
+                            <label asp-for="AdrActivitePro" class="control-label"></label>
+                        </div>
+                        <div class="col-md-6">
+                            <textarea type="text" asp-for="AdrActivitePro" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="AdrActivitePro" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12" style="display:flex;flex-direction:row;">
+                        <div class="col-md-5" style="padding:5px 0 5px 20px;">
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12" style="display:flex;flex-direction:row;margin-bottom:150px;">
+                        <div class="col-md-5" style="padding:5px 0 5px 20px;">
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12" style="display:flex;flex-direction:row;justify-content:space-between; margin-top:10px;">
+                    <!--<div class="form-group col-md-6" style="bottom:0px">-->
+                        <input type="submit" value=" Validation" class="btn btn-primary btnSubmit" />
+                    <!--</div>
+                    <div class="col-md-6">-->
+                        <a asp-action="Index"><button><i class="bi bi-list-columns"></i> Retour Liste</button></a>
+                    <!--</div-->
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

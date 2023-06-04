@@ -1,0 +1,17 @@
+﻿h1.ficheClient, .titH1val {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+.titH1 {
+    right:0;
+}
+.titH1val{
+    left:0;
+}
+div.activity {
+    border:1px solid #000537;
+    border-radius: 10px;
+}
+#BtnFCliRetourList{
+    left:20px;
+}

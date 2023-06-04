@@ -1,0 +1,45 @@
+﻿@model GestionDesProjets.Models.Client
+
+@{
+    ViewData["Title"] = "Details";
+}
+<!--Title area of part-->
+<div class="container row" style="margin:10px;">
+    <div class="col-sm-12" style="display:flex;flex-direction:row;align-items:center;font-weight:bold; ">
+        <div class="col-sm-1 itemTitle" style="text-align:end;padding-right:2px">
+            @Html.DisplayNameFor(model => model.IdClient)
+        </div>
+        <div class="col-sm-1 itemTitle">
+            <span>  : Cli_</span>
+            @Html.DisplayFor(model => model.IdClient)
+        </div>
+        <div style="display:flex;flex-direction:row;align-items:center;font-weight:bold;background-color:white;width:auto;border-radius:10px;margin:0 0 0 5%;">
+            <div class="col-sm-5 itemTitle" style="height:5vh;">
+                <h1 style="margin:0.5vh 0 0 5vw;font-size:1.5rem;text-align:end;font-weight:bold;">Fiche client :  </h1>
+            </div>
+            <div class="col-sm-5 itemTitle" style="padding:0 20vw 0 0;font-weight:bold;text-align:start;width:auto;">
+                <i class="bi bi-person-gear" style="font-size:1.5rem"> : @Html.DisplayFor(model => model.Firstname) @Html.DisplayFor(model => model.Name)</i>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<hr />
+
+<!--data area divided to 3 parts-->
+.                      <div class="col-sm-5" style="padding:5px 0 5px 20px;">
+                        </div>
+                        <div class="col-sm-6">
+                        </div>
+                    </div>
+                </div>
+                <!--The button to return to the customers list -->
+                <div class="col-md-12" style="display:flex;flex-direction:row;justify-content:end; margin-top:10%;">
+                    <a asp-action="Index"><button><i class="bi bi-list-columns"></i> Retour Liste</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

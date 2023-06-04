@@ -1,0 +1,167 @@
+CREATE TABLE Utilisateur(
+   idUtilisateur INT AUTO_INCREMENT,
+   login VARCHAR(20)  NOT NULL,
+   psw VARCHAR(255)  NOT NULL,
+   PRIMARY KEY(idUtilisateur),
+   UNIQUE(psw)
+);
+
+CREATE TABLE Projects(
+   idProj INT AUTO_INCREMENT,
+   numProj VARCHAR(250)  NOT NULL,
+   nameProj VARCHAR(255) ,
+   description VARCHAR(8000)  NOT NULL,
+   dateDebProj DATE NOT NULL,
+   dateEndThProj DATE NOT NULL,
+   dateEndRealProj DATE NOT NULL,
+   lieuProj VARCHAR(250)  NOT NULL,
+   statutProj VARCHAR(50)  NOT NULL,
+   idUtilisateur INT NOT NULL,
+   PRIMARY KEY(idProj),
+   UNIQUE(nameProj),
+   FOREIGN KEY(idUtilisateur) REFERENCES Utilisateur(idUtilisateur)
+);
+
+CREATE TABLE Task(
+   idTask INT AUTO_INCREMENT,
+   NameTask VARCHAR(50)  NOT NULL,
+   description VARCHAR(1500)  NOT NULL,
+   StateProjTask VARCHAR(50)  NOT NULL,
+   dateCreateTask DATE NOT NULL,
+   dateEnCours DATE NOT NULL,
+   dateATester DATE NOT NULL,
+   dateTerminée DATE NOT NULL,
+   dateEndThTask DATE NOT NULL,
+   dateEndRealTask DATE NOT NULL,
+   nameStatutTask VARCHAR(50)  NOT NULL,
+   idProj INT NOT NULL,
+   PRIMARY KEY(idTask),
+   FOREIGN KEY(idProj) REFERENCES Projects(idProj)
+);
+
+CREATE TABLE Clients(
+   idCli INT AUTO_INCREMENT,
+   nameCli VARCHAR(20)  NOT NULL,
+   adrCli VARCHAR(250)  NOT NULL,
+   firstnameCli VARCHAR(50)  NOT NULL,
+   telCli VARCHAR(20)  NOT NULL,
+   mailCli VARCHAR(50)  NOT NULL,
+   idUtilisateur INT NOT NULL,
+   PRIMARY KEY(idCli),
+   FOREIGN KEY(idUtilisateur) REFERENCES Utilisateur(idUtilisateur)
+);
+
+CREATE TABLE Documents(
+   idDoc INT AUTO_INCREMENT,
+   dateDoc DATE NOT NULL,
+   catDoc VARCHAR(20)  NOT NULL,
+   NameDoc VARCHAR(50)  NOT NULL,
+   AdrDoc VARCHAR(256)  NOT NULL,
+   descriptionDoc VARCHAR(1000) ,
+   idProj INT NOT NULL,
+   PRIMARY KEY(idDoc),
+   FOREIGN KEY(idProj) REFERENCES Projects(idProj)
+);
+
+CREATE TABLE Devis(
+   idDev INT AUTO_INCREMENT,
+   numDev VARCHAR(50)  NOT NULL,
+   dateDev DATE NOT NULL,
+   dateDeValidationDev DATE NOT NULL,
+   typeDev VARCHAR(20)  NOT NULL,
+   totDev DECIMAL(19,4) NOT NULL,
+   idCli INT,
+   idProj INT NOT NULL,
+   PRIMARY KEY(idDev),
+   UNIQUE(numDev),
+   FOREIGN KEY(idCli) REFERENCES Clients(idCli),
+   FOREIGN KEY(idProj) REFERENCES Projects(idProj)
+);
+
+CREATE TABLE Facture(
+   idFact INT AUTO_INCREMENT,
+   numFact VARCHAR(50)  NOT NULL,
+   dateFact DATE NOT NULL,
+   typeFact VARCHAR(20)  NOT NULL,
+   idProj INT NOT NULL,
+   PRIMARY KEY(idFact),
+   FOREIGN KEY(idProj) REFERENCES Projects(idProj)
+);
+
+CREATE TABLE TVA(
+   idTVA INT AUTO_INCREMENT,
+   tauxTVA DECIMAL(5,2)   NOT NULL,
+   PRIMARY KEY(idTVA)
+);
+
+CREATE TABLE Costs(
+   idCost INT AUTO_INCREMENT,
+   catCost VARCHAR(50)  NOT NULL,
+   dateCost DATE NOT NULL,
+   amountCost DECIMAL(19,4) NOT NULL,
+   idProj INT NOT NULL,
+   PRIMARY KEY(idCost),
+   FOREIGN KEY(idProj) REFERENCES Projects(idProj)
+);
+
+CREATE TABLE ligDevQPU(
+   idLignDev INT AUTO_INCREMENT,
+   designation VARCHAR(255)  NOT NULL,
+   QDev TINYINT NOT NULL,
+   PUDev DECIMAL(10,2)   NOT NULL,
+   idDev INT,
+   PRIMARY KEY(idLignDev),
+   FOREIGN KEY(idDev) REFERENCES Devis(idDev)
+);
+
+CREATE TABLE ligDevForfait(
+   idLignDevForfait INT AUTO_INCREMENT,
+   designationDevForfait VARCHAR(255)  NOT NULL,
+   ssTotForfait DECIMAL(10,2)   NOT NULL,
+   idDev INT,
+   PRIMARY KEY(idLignDevForfait),
+   FOREIGN KEY(idDev) REFERENCES Devis(idDev)
+);
+
+CREATE TABLE ligFactForfait(
+   idLignFactForfait INT AUTO_INCREMENT,
+   designationFactForfait VARCHAR(255)  NOT NULL,
+   ssTotForfait DECIMAL(10,2)   NOT NULL,
+   idFact INT,
+   PRIMARY KEY(idLignFactForfait),
+   FOREIGN KEY(idFact) REFERENCES Facture(idFact)
+);
+
+CREATE TABLE ligFactQPU(
+   idLignFact INT AUTO_INCREMENT,
+   designation VARCHAR(255)  NOT NULL,
+   QFact TINYINT NOT NULL,
+   PUFact DECIMAL(10,2)   NOT NULL,
+   idFact INT,
+   PRIMARY KEY(idLignFact),
+   FOREIGN KEY(idFact) REFERENCES Facture(idFact)
+);
+
+CREATE TABLE taxe(
+   idTVA INT,
+   idLignDev INT,
+   idLignDevForfait INT,
+   idLignFactForfait INT,
+   idLignFact INT,
+   PRIMARY KEY(idTVA, idLignDev, idLignDevForfait, idLignFactForfait, idLignFact),
+   FOREIGN KEY(idTVA) REFERENCES TVA(idTVA),
+   FOREIGN KEY(idLignDev) REFERENCES ligDevQPU(idLignDev),
+   FOREIGN KEY(idLignDevForfait) REFERENCES ligDevForfait(idLignDevForfait),
+   FOREIGN KEY(idLignFactForfait) REFERENCES ligFactForfait(idLignFactForfait),
+   FOREIGN KEY(idLignFact) REFERENCES ligFactQPU(idLignFact)
+);
+
+CREATE TABLE generateur(
+   idDoc INT,
+   idDev INT,
+   idFact INT,
+   PRIMARY KEY(idDoc, idDev, idFact),
+   FOREIGN KEY(idDoc) REFERENCES Documents(idDoc),
+   FOREIGN KEY(idDev) REFERENCES Devis(idDev),
+   FOREIGN KEY(idFact) REFERENCES Facture(idFact)
+);

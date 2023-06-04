@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GestionDesProjets</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/MenuStyle.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/GestionDesProjets.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+<body>
+   <!-- <div class="container">-->
+    <header>
+        <div class="divHeader">
+            
+        </div>
+        
+    </header>
+    <div class="logoMenu">
+        
+    </div>
+    <div class="menu">
+        <input type="checkbox" id="active">
+        <label for="active" class="menu-btn"><span></span></label>
+        <label for="active" class="close"></label>
+                
+        <div class="wrapper">
+            <img id="cadet" src="~/img/SDCadet.png"/>
+        
+            <ul>
+                <li><a asp-area="" asp-controller="Home" asp-action="Index">Accueil</a></li>
+                <li><a asp-area="" asp-controller="Projets" asp-action="Index">Gestion Projets</a></li>
+                <li><a asp-area="" asp-controller="Clients" asp-action="Index">Gestion Clients</a></li>
+                <li><a asp-area="" asp-controller="Documents" asp-action="Index">Gestion Documents</a></li>
+                <li><a asp-area="" asp-controller="Projets" asp-action="Index">Gestion Tâches</a></li>
+                <li><a asp-area="" asp-controller="Devis" asp-action="Index">Generateur Doc</a></li>
+                <li><a href="#">Tableau Bord</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="betweenarea">
+        <!--<img id="cadet" src="~/img/SDCadet.png"/>-->
+        <p class="display-4" style="text-align:center;color:white">Spationaute <span style="color:red;">|</span> Design</p>
+    </div>
+        
+        
+    
+
+
+    <div class="container">
+        <div style="background-color:white;padding:2px 2px 0 2px;">
+            <main role="main" style="background-color:lightgray;border:1px solid lightgray;border-start-start-radius:10px;border-start-end-radius:10px;">
+                @RenderBody()
+            </main>
+        </div>
+        
+    </div>
+
+    
+    <footer class="border-top footer text-muted">
+        <div class="container divContainer">
+            <p style="text-align:center;color:white;">&copy; 2023 - GestionDesProjets - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></p>
+        </div>
+    </footer>
+    
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

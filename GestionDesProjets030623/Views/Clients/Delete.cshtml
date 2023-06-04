@@ -1,0 +1,200 @@
+﻿@model GestionDesProjets.Models.Client
+
+@{
+    ViewData["Title"] = "Supprimer données client";
+}
+
+<!--Title area of part-->
+<div class="container row" style="margin:10px;">
+    <div class="col-sm-12" style="display:flex;flex-direction:row;align-items:center;font-weight:bold; ">
+        <div class="col-sm-1 itemTitle" style="text-align:end;padding-right:2px">
+            @Html.DisplayNameFor(model => model.IdClient)
+        </div>
+        <div class="col-sm-1 itemTitle">
+            <span>  : Cli_</span>
+            @Html.DisplayFor(model => model.IdClient)
+        </div>
+        <div class="col-sm-10" style="display:flex;flex-direction:row;align-items:center;font-weight:bold;background-color:white;width:auto;border-radius:10px;margin:0 0 0 0;">
+            <div class="col-sm-7 itemTitle" style="height:5vh;">
+                <h1 style="margin:0.5vh 0 0 0;font-size:1.5rem;text-align:end;font-weight:bold;">Supprimer données client </h1>
+            </div>
+            <div class="col-sm-5 itemTitle" style="padding:0 10vw 0 0;font-weight:bold;text-align:start;width:auto;">
+                <i class="bi bi-person-gear" style="font-size:1.5rem"> : @Html.DisplayFor(model => model.Firstname) @Html.DisplayFor(model => model.Name)</i>
+            </div>
+        </div>
+        
+    </div>
+    
+</div>
+<h3 style="color:red;background-color:yellow;font-size:1rem;text-align:center;">Attention la supression est irréversible.</h3>
+
+<hr />
+
+<div>
+    <div class="row FCli">
+        <div class="col-sm-12" style="display:flex;flex-direction:row;">
+            <!--data area the division to 2/3 parts and 2 rows-->
+            <div class="col-sm-8">
+                <!--First row-->
+                <div class="row divDesDePremTiers" style="padding:0 0 0 3vh;">
+                    <div class="col-sm-6">
+                        <dl class="row dListPremTier">
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.Firstname)
+                                <span> : </span>
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.Firstname)
+                            </dd>
+                        </dl>
+                        <dl class="row dListPremTier">
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.Name)
+                                <span> : </span>
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.Name)
+                            </dd>
+                        </dl>
+                        <dl class="row dListPremTier">
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.Adress)
+                                <span> : </span>
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.Adress)
+                            </dd>
+                        </dl>
+                        <dl class="row dListPremTier">
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.Tel)
+                                <span> : </span>
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.Tel)
+                            </dd>
+                        </dl>
+                        <dl class="row dListPremTier">
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.Mail)
+                                <span> : </span>
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Html.DisplayFor(model => model.Mail)
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="col-sm-6">
+                        <dl class="row dListPremTier">
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.IsActivate)
+                                <span> : </span>
+                            </dt>
+                            <dd class="col-sm-6">
+                                @Html.DisplayFor(model => model.IsActivate)
+                            </dd>
+                        </dl>
+                        <dl class="row dListPremTier">
+                            <dt class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.IsPro)
+                                <span> : </span>
+                            </dt>
+                            <dd class="col-sm-6">
+                                @Html.DisplayFor(model => model.IsPro)
+                            </dd>
+                        </dl>
+                        <dl class="row dListPremTier">
+                            <dt class="col-sm-5">
+                                @Html.DisplayNameFor(model => model.CodeApe)
+                                <span> : </span>
+                            </dt>
+                            <dd class="col-sm-6">
+                                @Html.DisplayFor(model => model.CodeApe)
+                            </dd>
+                        </dl>
+                        <dl class="row dListPremTier">
+                            <dt class="col-sm-5">
+                                @Html.DisplayNameFor(model => model.NumSiret)
+                                <span> : </span>
+                            </dt>
+                            <dd class="col-sm-6">
+                                @Html.DisplayFor(model => model.NumSiret)
+                            </dd>
+                        </dl>
+                        <dl class="row dListPremTier">
+                            <dt class="col-sm-5">
+                                @Html.DisplayNameFor(model => model.TvaIntracom)
+                                <span> : </span>
+                            </dt>
+                            <dd class="col-sm-6">
+                                @Html.DisplayFor(model => model.TvaIntracom)
+                            </dd>
+                        </dl>
+                        <dl class="row dListPremTier">
+                            <dt class="col-sm-5">
+                                @Html.DisplayNameFor(model => model.IdUtilisateurNavigation)
+                            </dt>
+                            <dd class="col-sm-6">
+                                @Html.DisplayFor(model => model.IdUtilisateurNavigation)
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <!--Second row-->
+                <div class="row divDesDePremTiers" style="padding:0 0 0 3vh;">
+                    <div class="form-group col-sm-11">
+                        <div class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Commentaire)
+                            <span> : </span>
+                        </div>
+                        <div class="col-sm-8" style="background-color:white;border-radius:10px;width:100%;height:7rem;border:1px solid white;">
+                            @Html.DisplayFor(model => model.Commentaire)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--data area the division of the third part-->
+            <div class="col-sm-4 dernTier" style="margin:0 0 10px 0;">
+                <div style="Border:1px solid #000537; border-radius:10px;">
+                    <div class="col-sm-4" style="margin:-14px 0 30px 10px;background-color:lightgray; text-align:center;">Activité Pro : </div>
+                    <div class="form-group col-sm-12" style="display:flex;flex-direction:row;">
+                        <div class="col-sm-5" style="padding:5px 0 5px 20px;">
+                            @Html.DisplayNameFor(model => model.NomActivitePro)
+                        </div>
+                        <div class="col-sm-6">
+                            @Html.DisplayFor(model => model.NomActivitePro)
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12" style="display:flex;flex-direction:row;">
+                        <div class="col-sm-5" style="padding:5px 0 5px 20px;">
+                            @Html.DisplayNameFor(model => model.AdrActivitePro)
+                        </div>
+                        <div class="col-sm-6">
+                            @Html.DisplayFor(model => model.AdrActivitePro)
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12" style="display:flex;flex-direction:row;">
+                        <div class="col-sm-5" style="padding:5px 0 5px 20px;">
+                        </div>
+                        <div class="col-sm-6">
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12" style="display:flex;flex-direction:row;margin-bottom:150px;">
+                        <div class="col-sm-5" style="padding:5px 0 5px 20px;">
+                        </div>
+                        <div class="col-sm-6">
+                        </div>
+                    </div>
+                </div>
+                <!--The button to return to the customers list -->
+                <div class="col-md-12" style="display:flex;flex-direction:row;justify-content:space-between; margin-top:10%;">
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="IdClient" />
+                        <input type="submit" value="Supprimer Client" class="btn btnSubmitDanger" />
+                    </form>
+                    <a asp-action="Index"><button><i class="bi bi-list-columns"></i> Retour Liste</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

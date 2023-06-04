@@ -1,0 +1,17 @@
+h1.ficheClient[b-xtngb6nr98], .titH1val[b-xtngb6nr98] {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+.titH1[b-xtngb6nr98] {
+    right:0;
+}
+.titH1val[b-xtngb6nr98]{
+    left:0;
+}
+div.activity[b-xtngb6nr98] {
+    border:1px solid #000537;
+    border-radius: 10px;
+}
+#BtnFCliRetourList[b-xtngb6nr98]{
+    left:20px;
+}

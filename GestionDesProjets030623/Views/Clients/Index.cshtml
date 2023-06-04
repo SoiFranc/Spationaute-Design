@@ -1,0 +1,163 @@
+﻿<link rel="stylesheet" asp-append-version="true" />
+@model IEnumerable<GestionDesProjets.Models.Client>
+
+@{
+    ViewData["Title"] = "GestionClients";
+}
+
+<h1 class="H1GestCli">Gestion Clients</h1>
+
+<div class="row" style="text-align:center;margin-bottom:30px;height:6vh;">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-7">
+        <form asp-action="Index" method="get">
+            <div class="form-actions no-color" style="border:1px solid #000537;border-radius:10px;height:6vh;display:flex;flex-direction:row;justify-content:space-around;align-items:center;">
+                <span>Recherche par Nom :</span>
+                <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" style="width:60%;height:4vh;margin-top:1vh;" />
+                <button id="searchSubmit" type="submit" class="reinitialise"><i class="bi bi-search" style="border:1px solid #000537; font-size:1.5rem; vertical-align:middle;border-radius:5px;padding:0 3px 0 3px;color:#000537;"></i></button>
+                <a asp-action="Index" class="reinitialise"><i class="bi bi-list-columns" style="border:1px solid #000537; font-size:1.5rem; vertical-align:middle;border-radius:5px;padding:0 3px 0 3px;"></i></a>
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-4">
+        <a asp-action="Create"><button><i class="bi bi-person-fill-add" style="padding:0 2px 0 0px;"></i>  Nouveau Client</button></a>
+         
+    </div>
+</div>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Firstname)<a asp-action="Index" asp-route-sortOrder="@ViewData["FirstnameSortParm"]"> <i class="bi bi-arrow-down-up"></i></a>
+                </th>
+                <!--<th>
+                    @Html.DisplayNameFor(model => model.Firstname)
+                </th>-->
+                
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)<a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]"> <i class="bi bi-arrow-down-up"></i></a>
+                </th>
+                <!--<th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+               <th>
+                @Html.DisplayNameFor(model => model.Adress)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.Tel)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.Mail)
+                </th>-->
+                <th>
+                    @Html.DisplayNameFor(model => model.IsActivate)
+                </th>
+                <!--<th>
+                @Html.DisplayNameFor(model => model.IsPro)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.NumSiret)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.TvaIntracom)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.CodeApe)
+                </th>-->
+                <th>
+                    @Html.DisplayNameFor(model => model.NomActivitePro)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AdrActivitePro)
+                </th>
+                <!--<th>
+                    @Html.DisplayNameFor(model => model.Commentaire)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.IdUtilisateurNavigation)
+                </th>-->
+                <th>
+                    <div class="row" style="text-align:center;">
+                        <div class="col-sm-3">
+                            Modifier
+                        </div>|
+                        <div class="col-sm-4">
+                            Fich Client
+                        </div>|
+                        <div class="col-sm-4">
+                            Supprimer
+                        </div>
+                    </div>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Firstname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <!--<td>
+                    @Html.DisplayFor(modelItem => item.Adress)
+                    </td>
+                    <td>
+                    @Html.DisplayFor(modelItem => item.Tel)
+                    </td>
+                    <td>
+                    @Html.DisplayFor(modelItem => item.Mail)
+                    </td>-->
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsActivate)
+                    </td>
+                    <!--<td>
+                    @Html.DisplayFor(modelItem => item.IsPro)
+                    </td>
+                    <td>
+                    @Html.DisplayFor(modelItem => item.NumSiret)
+                    </td>
+                    <td>
+                    @Html.DisplayFor(modelItem => item.TvaIntracom)
+                    </td>
+                    <td>
+                    @Html.DisplayFor(modelItem => item.CodeApe)
+                    </td>-->
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NomActivitePro)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AdrActivitePro)
+                    </td>
+                    <!--<td>
+                        @Html.DisplayFor(modelItem => item.Commentaire)
+                    </td>
+                    <td>
+                    @Html.DisplayFor(modelItem => item.IdUtilisateurNavigation.Firstname)
+                    </td>-->
+                    <td>
+                        <div class="row" style="text-align:center;">
+                            <div class="col-sm-3">
+                                <a asp-action="Edit" asp-route-id="@item.IdClient"><i class="bi bi-person-gear" style="color:#000537;"></i></a> 
+                            </div>|
+                            <div class="col-sm-4">
+                                <a asp-action="Details" asp-route-id="@item.IdClient"><i class="bi bi-person-vcard-fill" style="color:#000537;"></i></a><!--"Details"-->
+                            </div>|
+                            <div class="col-sm-4">
+                                <a asp-action="Delete" asp-route-id="@item.IdClient"><i class="bi bi-person-x" style="color:red;"></i></a>
+                            </div>
+                        </div>
+
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
